@@ -15,6 +15,14 @@ urls.forEach((url) => {
     });
     res.on('end', () => {
       // TODO: Write the data to a file with the hostname as the filename
+      const hostname = new URL(url).hostname
+      fs.writeFile(`${hostname}.txt`, data, (error) => {
+        if(error){
+          console.log(`Error writing ${hostname}.txt:`, error)
+          return
+        }
+        console.log(`Saved ${url} to ${hostname}.txt`);
+      })
     });
   }).on('error', (err) => {
     console.error(`Error downloading ${url}: ${err}`);
