@@ -3,10 +3,11 @@ const http = require('http');
 const https = require('https');
 
 const urls = process.argv.slice(2);
-if(!urls.length){
-  console.log("No urls provided")
-  return
+if (urls.length === 0) {
+    console.error("Error: No URLs provided");
+    process.exit(1);
 }
+
 urls.forEach((url) => {
   const protocol = url.startsWith('https') ? https : http;
   const options = { method: 'GET', headers: { 'User-Agent': 'Mozilla/5.0' } };
